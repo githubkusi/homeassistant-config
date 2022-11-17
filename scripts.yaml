@@ -1,0 +1,20 @@
+guten_morgen_kinder:
+  alias: Guten Morgen Kinder
+  sequence:
+    - type: turn_off
+      device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+      entity_id: light.shellydimmer2_34945471b1bb
+      domain: light
+    - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+      domain: light
+      entity_id: light.shellydimmer2_34945471b1bb
+      type: brightness_increase
+  mode: single
+  icon: mdi:sun-clock
+# marantz_select_computer:
+#   - service: media_player.select_source
+#     entity_id: marantz.select_computer
+# data:
+#   source: Computer
+# target:
+#   entity_id: media_player.marantz_nr1510_2

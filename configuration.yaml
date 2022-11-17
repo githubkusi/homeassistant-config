@@ -1,0 +1,92 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Kusi
+rest_command:
+  beamer_on:
+    url: "http://192.168.1.48/cgi-bin/pjctrl.cgi.elf?D=%05%02%00%00%00%00"
+    method: post
+    verify_ssl: false
+  beamer_off:
+    url: "http://192.168.1.48/cgi-bin/pjctrl.cgi.elf?D=%05%02%01%00%00%00"
+    method: post
+    verify_ssl: false
+
+switch:
+  - platform: template
+    switches:
+      beamer:
+        friendly_name: Beamer
+        value_template: "{{ is_state('binary_sensor.beamer_status', 'on') }}"
+        turn_on:
+          - service: rest_command.beamer_on
+          - service: media_player.select_source
+            data:
+              source: Computer
+            target:
+              entity_id: media_player.marantz_denonavr
+          - delay:
+              seconds: 10
+          - service: media_player.volume_set
+            data:
+              volume_level: 0.6
+            target:
+              entity_id: media_player.marantz_denonavr
+
+        turn_off:
+          - service: rest_command.beamer_off
+          - service: media_player.turn_off
+            target:
+              entity_id: media_player.marantz_denonavr
+
+      test_marantz:
+        turn_on:
+          - service: media_player.select_source
+            data:
+              source: Computer
+            target:
+              entity_id: media_player.marantz_denonavr
+          - delay:
+              seconds: 10
+          - service: media_player.volume_set
+            data:
+              volume_level: 0.6
+            target:
+              entity_id: media_player.marantz_denonavr
+
+        turn_off:
+          - service: rest_command.beamer_off
+          - service: media_player.turn_off
+            target:
+              entity_id: media_player.marantz_denonavr
+
+  - platform: wake_on_lan
+    name: Computer (Beamer)
+    mac: 4c:cc:6a:6a:fc:7c
+    host: 192.168.1.80
+    turn_off:
+      service: shell_command.turn_off_kiste
+
+binary_sensor:
+  # response contains as first sign a newline. This could be parsed by default
+  # json.loads(), but not by HA json parser. Therefore value_json is empty
+  # and it needs to be parsed manually
+  - platform: rest
+    resource: "http://192.168.1.48/cgi-bin/pjctrl.cgi.elf?D=%06%00%BF%00%00%01%02"
+    method: POST
+    verify_ssl: false
+    name: beamer_status
+    value_template: >
+      {% set item6 = value.split(',')[6] | int %}
+      {{ item6 == 4 or item6 == 3 }}
+
+shell_command:
+  turn_off_kiste: "ssh -i /config/ssh_keys/id_rsa -o 'StrictHostKeyChecking=no' kusi@192.168.1.80 'sudo /usr/sbin/poweroff'"

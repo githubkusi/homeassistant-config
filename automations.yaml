@@ -1,0 +1,25 @@
+- id: '1667513954837'
+  alias: Licht am Morgen
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:30:00'
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.badezimmer
+  mode: single
+- id: '1668538185083'
+  alias: SelectComputer
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: media_player.select_source
+    data:
+      source: Computer
+    target:
+      device_id: 061aa623994d3c7cf586bd085e2fce66
+  mode: single
