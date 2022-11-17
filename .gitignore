@@ -1,0 +1,8 @@
+# according to https://community.home-assistant.io/t/sharing-your-configuration-on-github/195144
+.storage
+.cloud
+.google.token
+
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml
