@@ -75,6 +75,13 @@ switch:
     turn_off:
       service: shell_command.turn_off_kiste
 
+  - platform: wake_on_lan
+    name: Computer (Office)
+    mac: 2c:f0:5d:a9:1d:d1
+    host: 192.168.1.44
+    turn_off:
+      service: shell_command.turn_off_nii
+
 binary_sensor:
   # response contains as first sign a newline. This could be parsed by default
   # json.loads(), but not by HA json parser. Therefore value_json is empty
@@ -90,3 +97,4 @@ binary_sensor:
 
 shell_command:
   turn_off_kiste: "ssh -i /config/ssh_keys/id_rsa -o 'StrictHostKeyChecking=no' kusi@192.168.1.80 'sudo /usr/sbin/poweroff'"
+  turn_off_nii: "ssh -i /config/ssh_keys/id_rsa.nii -o 'StrictHostKeyChecking=no' kusi@192.168.1.44 'sudo systemctl suspend'"
