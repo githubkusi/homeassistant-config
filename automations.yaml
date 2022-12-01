@@ -23,3 +23,64 @@
     target:
       device_id: 061aa623994d3c7cf586bd085e2fce66
   mode: single
+- id: '1668867034619'
+  alias: Licht Küche Mobil
+  description: ''
+  use_blueprint:
+    path: SeanM/zha-aqara-wireless-mini-switch.yaml
+    input:
+      aqara_mini_switch: 2c5023272665028ae1e5892d1515994e
+      button_single_press:
+      - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+        domain: light
+        entity_id: light.kinderzimmer
+        type: brightness_increase
+      button_long_press:
+      - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+        domain: light
+        entity_id: light.kinderzimmer
+        type: brightness_decrease
+      button_double_press:
+      - type: turn_off
+        device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+        entity_id: light.kinderzimmer
+        domain: light
+- id: '1669832462775'
+  alias: Weihnachtbeleuchtung On
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: e0a513b4dbbee62d0915f6d969facda0
+    entity_id: switch.hombli_smart_socket_1
+    domain: switch
+  mode: single
+- id: '1669832519068'
+  alias: Weihnachtbeleuchtung Off
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: e0a513b4dbbee62d0915f6d969facda0
+    entity_id: switch.hombli_smart_socket_1
+    domain: switch
+  mode: single
+- id: '1669840943966'
+  alias: New Automation bla
+  description: ''
+  trigger:
+  - platform: time
+    at: '21:44:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    entity_id: light.terrasse_steckdose
+    domain: light
+  mode: single
