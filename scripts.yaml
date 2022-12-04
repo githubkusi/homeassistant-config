@@ -1,32 +1,29 @@
 guten_morgen_kinder:
   alias: Guten Morgen Kinder
   sequence:
-    - type: turn_off
-      device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-      entity_id: light.shellydimmer2_34945471b1bb
-      domain: light
-    - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-      domain: light
-      entity_id: light.shellydimmer2_34945471b1bb
-      type: brightness_increase
+  - type: turn_off
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: light.shellydimmer2_34945471b1bb
+    domain: light
+  - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    domain: light
+    entity_id: light.shellydimmer2_34945471b1bb
+    type: brightness_increase
   mode: single
   icon: mdi:sun-clock
-
 asdf:
   alias: Guten Morgen Kinder
   sequence:
-    - type: turn_off
-      device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-      entity_id: light.shellydimmer2_34945471b1bb
-      domain: light
-    - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-      domain: light
-      entity_id: light.shellydimmer2_34945471b1bb
-      type: brightness_increase
+  - type: turn_off
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: light.shellydimmer2_34945471b1bb
+    domain: light
+  - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    domain: light
+    entity_id: light.shellydimmer2_34945471b1bb
+    type: brightness_increase
   mode: single
   icon: mdi:sun-clock
-
-
 play_sayhi:
   sequence:
   - service: media_player.play_media
@@ -35,3 +32,88 @@ play_sayhi:
     data:
       media_content_id: /media/sayhi-2022-luca-hänni.mp3
       media_content_type: music
+play_herzbeben:
+  alias: Play Herzbeben
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.family_room_tv
+    data:
+      media_content_id: media-source://media_source/local/sayhi-2022-luca-hänni.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: sayhi-2022-luca-hänni.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  mode: single
+  icon: mdi:spotify
+play_sayhi_marantz:
+  alias: Play Sayhi Marantz
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.marantz_heos
+    data:
+      media_content_id: media-source://media_source/local/sayhi-2022-luca-hänni.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: sayhi-2022-luca-hänni.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  mode: single
+  icon: mdi:spotify
+play_badezimmer:
+  alias: play badezimmer goldengaul
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.badezimmer
+    data:
+      media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0ITaQvQ4I118J36BOHm1pd
+      media_content_type: spotify://playlist
+    metadata:
+      title: Nathalie golden gaul
+      thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2735a15602b01795514d058b6edab67616d0000b2739a3da6b52373b762009671cbab67616d0000b273c82a59431ee475300e2f618aab67616d0000b273ca40908d43a2a80fb34de8a3
+      media_class: playlist
+      children_media_class: track
+      navigateIds:
+      - {}
+      - media_content_type: spotify://library
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
+      - media_content_type: spotify://current_user_playlists
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
+      - media_content_type: spotify://playlist
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0ITaQvQ4I118J36BOHm1pd
+  mode: single
+  icon: mdi:account-music
+how_are_you_doing_on_badezimmer:
+  alias: how are you doing on Badezimmer - works
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.badezimmer
+    data:
+      media_content_id: media-source://tts/google_translate?message=how+are+you+doing
+      media_content_type: provider
+    metadata:
+      title: how are you doing
+      thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/google_translate?message=how+are+you+doing
+  mode: single
