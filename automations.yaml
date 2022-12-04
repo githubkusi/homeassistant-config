@@ -84,3 +84,42 @@
     entity_id: light.terrasse_steckdose
     domain: light
   mode: single
+- id: '1669895061075'
+  alias: test shelly longpush
+  description: ''
+  trigger:
+  - platform: event
+    event_type: shelly.click
+    event_data:
+      device: Küche
+      channel: 2
+      click_type: single
+    id: testlongpush
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: long_push
+    subtype: button1
+  condition: []
+  action:
+  - type: toggle
+    device_id: 62800ac78a288d382f57db3c0545906d
+    entity_id: light.spuelbecken
+    domain: light
+  mode: single
+- id: '1669898938917'
+  alias: Küche Licht N Short Push
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: single_push
+    subtype: button1
+  condition: []
+  action:
+  - type: toggle
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    entity_id: light.kuche_licht
+    domain: light
+  mode: single
