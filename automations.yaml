@@ -59,7 +59,7 @@
     domain: switch
   mode: single
 - id: '1669895061075'
-  alias: test shelly longpush
+  alias: Küche Licht N Long Push
   description: ''
   trigger:
   - platform: event
@@ -69,6 +69,7 @@
       channel: 2
       click_type: single
     id: testlongpush
+    enabled: false
   - platform: device
     device_id: 95b36309b518dfe168d35762ee1a045c
     domain: shelly
@@ -82,7 +83,7 @@
     domain: light
   mode: single
 - id: '1669898938917'
-  alias: Küche Licht N Short Push
+  alias: Küche Licht N Single Push
   description: ''
   trigger:
   - platform: device
@@ -203,4 +204,54 @@
   action:
   - service: media_player.media_stop
     entity_id: media_player.badezimmer
+  mode: single
+- id: '1670343600109'
+  alias: Badezimmer Nat stop on light off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
+  condition: []
+  action:
+  - service: media_player.media_stop
+    data: {}
+    target:
+      entity_id: media_player.badezimmer
+  mode: single
+- id: '1670442525029'
+  alias: Terrasse Long Push Beamer
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    domain: shelly
+    type: long_push
+    subtype: button1
+  condition: []
+  action:
+  - service: rest_command.beamer_on
+    data: {}
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.computer_beamer
+  mode: single
+- id: '1670499646756'
+  alias: Küche Licht S Single Push
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: single_push
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    entity_id: light.kuche_licht
+    domain: light
   mode: single
