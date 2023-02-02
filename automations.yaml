@@ -95,7 +95,7 @@
   action:
   - type: toggle
     device_id: 95b36309b518dfe168d35762ee1a045c
-    entity_id: light.kuche_licht
+    entity_id: light.kueche
     domain: light
   mode: single
 - id: '1670152299285'
@@ -107,6 +107,11 @@
     platform: device
     type: remote_button_short_press
     subtype: remote_button_short_press
+  - platform: device
+    type: turned_on
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
   condition: []
   action:
   - service: media_player.play_media
@@ -128,6 +133,24 @@
         media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
       - media_content_type: spotify://playlist
         media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0ITaQvQ4I118J36BOHm1pd
+    enabled: false
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.badezimmer
+    data:
+      media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:6ouM7lgnROKiwCbLYQjQQT
+      media_content_type: spotify://playlist
+    metadata:
+      title: Culture francaise
+      thumbnail: https://mosaic.scdn.co/640/ab67616d0000b273159a5ce13b0c1657c87b96bcab67616d0000b2731a33af0f0829ce05885c7bc7ab67616d0000b2735c165929dde4dae330ba33d2ab67616d0000b2735ef15ae660d20a98d43721f1
+      media_class: playlist
+      children_media_class: track
+      navigateIds:
+      - {}
+      - media_content_type: spotify://library
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
+      - media_content_type: spotify://current_user_playlists
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
     enabled: false
   - service: media_player.play_media
     target:
@@ -174,23 +197,10 @@
     subtype: button1
   condition: []
   action:
-  - service: media_player.play_media
-    target:
-      entity_id: media_player.marantz_heos
-    data:
-      media_content_id: media-source://tts/google_translate?message=Hallo+Flavia+und+Timea
-      media_content_type: provider
-    metadata:
-      title: Hallo Flavia und Timea
-      thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
-      media_class: app
-      children_media_class:
-      navigateIds:
-      - {}
-      - media_content_type: app
-        media_content_id: media-source://tts
-      - media_content_type: provider
-        media_content_id: media-source://tts/google_translate?message=Hallo+Flavia+und+Timea
+  - type: toggle
+    device_id: 80c99e91ca7ffea365533d0c36ccfafe
+    entity_id: switch.hombly_socket_2
+    domain: switch
   mode: single
 - id: '1670318646476'
   alias: Badezimmer Nat Stop
@@ -200,6 +210,11 @@
     platform: device
     type: remote_button_long_press
     subtype: remote_button_long_press
+  - platform: device
+    type: turned_off
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
   condition: []
   action:
   - service: media_player.media_stop
@@ -252,6 +267,84 @@
   action:
   - type: toggle
     device_id: 95b36309b518dfe168d35762ee1a045c
-    entity_id: light.kuche_licht
+    entity_id: light.kueche
+    domain: light
+  mode: single
+- id: '1670506208638'
+  description: ''
+  trigger:
+  - platform: event
+    event_type: aaa
+    event_data:
+      payload: gutenmorgen
+  condition: []
+  action:
+  - type: toggle
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: light.kinderzimmer
+    domain: light
+  mode: single
+- id: '1670508071488'
+  alias: Küche Licht S Long Push
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: long_push
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: bdd792544ccee16e7e5081589ad95f9a
+    entity_id: switch.hombly_socket_3
+    domain: switch
+  mode: single
+- id: '1675010992205'
+  alias: Küchentisch Toggle Light
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: single
+    subtype: button1
+  condition: []
+  action:
+  - type: toggle
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+  mode: single
+- id: '1675108135406'
+  alias: Girlande Fenster
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: single
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: a7ccfc6164c35010220130aa3783a3dc
+    entity_id: switch.fenster_steckdose
+    domain: switch
+  mode: single
+- id: '1675111619707'
+  alias: debug shelly
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    domain: shelly
+    type: single
+    subtype: button1
+  condition: []
+  action:
+  - type: toggle
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: light.kinderzimmer
     domain: light
   mode: single
