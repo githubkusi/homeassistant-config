@@ -37,11 +37,14 @@ switch:
               seconds: 10
           - service: media_player.volume_set
             data:
-              volume_level: 0.6
+              volume_level: 0.75
             target:
               entity_id: media_player.marantz_denonavr
 
         turn_off:
+          - service: light.turn_on
+            target:
+              entity_id: light.spuelbecken
           - service: rest_command.beamer_off
           - service: media_player.turn_off
             target:
