@@ -294,22 +294,6 @@
     entity_id: switch.fenster_steckdose
     domain: switch
   mode: single
-- id: '1675111619707'
-  alias: debug shelly
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-    domain: shelly
-    type: single
-    subtype: button1
-  condition: []
-  action:
-  - type: toggle
-    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-    entity_id: light.kinderzimmer
-    domain: light
-  mode: single
 - id: '1675332855531'
   alias: Küchentisch Gedimmt
   description: ''
@@ -421,53 +405,24 @@
     target:
       entity_id: media_player.spotify_spotifykusi
     enabled: true
-  - service: media_player.play_media
-    target:
-      entity_id: media_player.spotify_spotifykusi
-    data:
-      media_content_id: spotify:track:7MOdFbxbHrbS4BK4k8O2dj
-      media_content_type: spotify://track
-    metadata:
-      title: Mettmenstetten
-      thumbnail: https://i.scdn.co/image/ab67616d0000b2737e2e218329c9d2f79717c36f
-      media_class: track
-      children_media_class:
-      navigateIds:
-      - {}
-      - media_content_type: spotify://current_user_recently_played
-        media_content_id: current_user_recently_played
-    enabled: true
-  - service: media_player.play_media
-    target:
-      entity_id: media_player.family_room_tv
-    data:
-      media_content_id: media-source://media_source/local/sayhi.mp3
-      media_content_type: audio/mpeg
-    metadata:
-      title: sayhi.mp3
-      thumbnail:
-      media_class: music
-      children_media_class:
-      navigateIds:
-      - {}
-      - media_content_type: app
-        media_content_id: media-source://media_source
-    enabled: false
   - if:
     - condition: device
-      device_id: 8372f3f81f225cb560d9081a91ff1b24
+      device_id: 061aa623994d3c7cf586bd085e2fce66
       domain: media_player
-      entity_id: media_player.spotify_spotifykusi
+      entity_id: media_player.marantz_heos
       type: is_playing
-      enabled: false
-    - condition: template
-      value_template: '{{ true }}'
     then:
+    - event: kusi
+      event_data:
+        state: spotify playing, stop now
     - service: media_player.media_pause
       data: {}
       target:
-        entity_id: media_player.marantz_heos
+        device_id: 8372f3f81f225cb560d9081a91ff1b24
     else:
+    - event: kusi
+      event_data:
+        state: nothings playing, play Mettmenstetten now
     - service: media_player.play_media
       target:
         entity_id: media_player.spotify_spotifykusi
@@ -483,11 +438,8 @@
         - {}
         - media_content_type: spotify://current_user_recently_played
           media_content_id: current_user_recently_played
-    - service: light.toggle
-      data: {}
-      target:
-        entity_id: light.badezimmer
-    enabled: false
+    enabled: true
+    alias: conditional play or stop
   mode: single
 - id: '1675554209925'
   alias: debug condition
@@ -506,4 +458,31 @@
     - event: kusi
       event_data:
         kusi: else
+  mode: single
+- id: '1675606576503'
+  alias: debug condition
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: long
+    subtype: button2
+  condition: []
+  action:
+  - if:
+    - condition: template
+      value_template: '{{ false }}'
+      enabled: false
+    - condition: template
+      value_template: '{{ true }}'
+    then:
+    - event: kusi
+      event_data:
+        state: spotify playing, stop now
+    else:
+    - event: kusi
+      event_data:
+        state: nothings playing, play Mettmenstetten now
+    enabled: true
   mode: single
