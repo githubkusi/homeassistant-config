@@ -62,14 +62,6 @@
   alias: Küche Licht N Long Push
   description: ''
   trigger:
-  - platform: event
-    event_type: shelly.click
-    event_data:
-      device: Küche
-      channel: 2
-      click_type: single
-    id: testlongpush
-    enabled: false
   - platform: device
     device_id: 95b36309b518dfe168d35762ee1a045c
     domain: shelly
@@ -270,20 +262,6 @@
     entity_id: light.kueche
     domain: light
   mode: single
-- id: '1670506208638'
-  description: ''
-  trigger:
-  - platform: event
-    event_type: aaa
-    event_data:
-      payload: gutenmorgen
-  condition: []
-  action:
-  - type: toggle
-    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-    entity_id: light.kinderzimmer
-    domain: light
-  mode: single
 - id: '1670508071488'
   alias: Küche Licht S Long Push
   description: ''
@@ -299,22 +277,6 @@
     device_id: bdd792544ccee16e7e5081589ad95f9a
     entity_id: switch.hombly_socket_3
     domain: switch
-  mode: single
-- id: '1675010992205'
-  alias: Küchentisch Toggle Light
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 0cb3db7867669f14d5560252bad5abc4
-    domain: shelly
-    type: single
-    subtype: button1
-  condition: []
-  action:
-  - type: toggle
-    device_id: 0cb3db7867669f14d5560252bad5abc4
-    entity_id: light.kuechentisch
-    domain: light
   mode: single
 - id: '1675108135406'
   alias: Girlande Fenster
@@ -347,4 +309,201 @@
     device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
     entity_id: light.kinderzimmer
     domain: light
+  mode: single
+- id: '1675332855531'
+  alias: Küchentisch Gedimmt
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: long
+    subtype: button1
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness: 29
+    target:
+      device_id: 0cb3db7867669f14d5560252bad5abc4
+  mode: single
+- id: '1675334841799'
+  alias: Küchentisch off->on
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: single
+    subtype: button1
+  condition:
+  - condition: device
+    type: is_off
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+  action:
+  - type: turn_on
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1675335071609'
+  alias: Küchentisch on->off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: single
+    subtype: button1
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+  action:
+  - type: turn_off
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+  mode: single
+- id: '1675369154855'
+  alias: Küche S Girlande
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: long_push
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    entity_id: switch.terrasse_girlande
+    domain: switch
+  mode: single
+- id: '1675379653120'
+  alias: test slow turn on
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: double_push
+    subtype: button2
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      transition: 25
+      brightness_pct: 25
+    target:
+      device_id: 0cb3db7867669f14d5560252bad5abc4
+  mode: single
+- id: '1675450639597'
+  alias: Mädels Music Play
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: long
+    subtype: button2
+  condition: []
+  action:
+  - service: media_player.select_source
+    data:
+      source: Marantz NR1510
+    target:
+      entity_id: media_player.spotify_spotifykusi
+    enabled: true
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.spotify_spotifykusi
+    data:
+      media_content_id: spotify:track:7MOdFbxbHrbS4BK4k8O2dj
+      media_content_type: spotify://track
+    metadata:
+      title: Mettmenstetten
+      thumbnail: https://i.scdn.co/image/ab67616d0000b2737e2e218329c9d2f79717c36f
+      media_class: track
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: spotify://current_user_recently_played
+        media_content_id: current_user_recently_played
+    enabled: true
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.family_room_tv
+    data:
+      media_content_id: media-source://media_source/local/sayhi.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: sayhi.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+    enabled: false
+  - if:
+    - condition: device
+      device_id: 8372f3f81f225cb560d9081a91ff1b24
+      domain: media_player
+      entity_id: media_player.spotify_spotifykusi
+      type: is_playing
+      enabled: false
+    - condition: template
+      value_template: '{{ true }}'
+    then:
+    - service: media_player.media_pause
+      data: {}
+      target:
+        entity_id: media_player.marantz_heos
+    else:
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.spotify_spotifykusi
+      data:
+        media_content_id: spotify:track:7MOdFbxbHrbS4BK4k8O2dj
+        media_content_type: spotify://track
+      metadata:
+        title: Mettmenstetten
+        thumbnail: https://i.scdn.co/image/ab67616d0000b2737e2e218329c9d2f79717c36f
+        media_class: track
+        children_media_class:
+        navigateIds:
+        - {}
+        - media_content_type: spotify://current_user_recently_played
+          media_content_id: current_user_recently_played
+    - service: light.toggle
+      data: {}
+      target:
+        entity_id: light.badezimmer
+    enabled: false
+  mode: single
+- id: '1675554209925'
+  alias: debug condition
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - if:
+    - condition: template
+      value_template: '{{ false }}'
+    then:
+    - event: kusi
+      event_data:
+        kusi: then
+    else:
+    - event: kusi
+      event_data:
+        kusi: else
   mode: single
