@@ -91,7 +91,7 @@
     domain: light
   mode: single
 - id: '1670152299285'
-  alias: Badezimmer Nat Play
+  alias: Badezimmer Nat Play Tag
   description: ''
   trigger:
   - device_id: 31cfe845d69d3416c4319e383f33659e
@@ -104,7 +104,10 @@
     device_id: 9cdc61049d2b05bba87540ebda2a38b6
     entity_id: light.badezimmer
     domain: light
-  condition: []
+  condition:
+  - condition: time
+    before: '19:00:00'
+    alias: Before 7pm
   action:
   - service: media_player.play_media
     target:
@@ -427,17 +430,24 @@
       target:
         entity_id: media_player.spotify_spotifykusi
       data:
-        media_content_id: spotify:track:7MOdFbxbHrbS4BK4k8O2dj
+        media_content_id: spotify:track:6oZLgfZMI00Lvb0dNUKhFL
         media_content_type: spotify://track
       metadata:
-        title: Mettmenstetten
-        thumbnail: https://i.scdn.co/image/ab67616d0000b2737e2e218329c9d2f79717c36f
+        title: Atemlos durch die Nacht - Bassflow Main Radio/Video Mix
+        thumbnail: https://i.scdn.co/image/ab67616d0000b27398e141628620cd4c21df97fe
         media_class: track
         children_media_class:
         navigateIds:
         - {}
-        - media_content_type: spotify://current_user_recently_played
-          media_content_id: current_user_recently_played
+        - media_content_type: spotify://current_user_saved_tracks
+          media_content_id: current_user_saved_tracks
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.45
+      target:
+        device_id:
+        - 061aa623994d3c7cf586bd085e2fce66
+        - 8372f3f81f225cb560d9081a91ff1b24
     enabled: true
     alias: conditional play or stop
   mode: single
@@ -485,4 +495,107 @@
       event_data:
         state: nothings playing, play Mettmenstetten now
     enabled: true
+  mode: single
+- id: '1676670464465'
+  alias: 'Abwesenheit: Spülbecken on'
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:55:00'
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.spuelbecken
+  mode: single
+- id: '1676670544335'
+  alias: 'Abwesenheit: Spülbecken off'
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:30:00'
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.spuelbecken
+  mode: single
+- id: '1678309430397'
+  alias: Badezimmer Nat Play Tag vs Abend
+  description: ''
+  trigger:
+  - device_id: 31cfe845d69d3416c4319e383f33659e
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: remote_button_short_press
+  - platform: device
+    type: turned_on
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
+  condition: []
+  action:
+  - if:
+    - condition: time
+      before: 06:30:00
+      after: '20:00:00'
+      alias: Is Night
+    then:
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.35
+      target:
+        device_id: 91c4217e42a10b73ecb962aa4df5ce73
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.badezimmer
+      data:
+        media_content_id: media-source://radio_browser/6c17578a-4051-11ea-a9fa-52543be04c81
+        media_content_type: audio/aac
+      metadata:
+        title: Nostalgie Best Of 90s
+        thumbnail: https://img.nrj.fr/st29loEdOtUvR4j--DvnCe_bpBg=/250x250/smart/https://players.nrjaudio.fm/live-metadata/player/img/player-files/nosta/logos/640x640/P_Nosta_WR_BestOf_90s.png
+        media_class: music
+        children_media_class:
+        navigateIds:
+        - {}
+        - media_content_type: app
+          media_content_id: media-source://radio_browser
+        - media_content_type: music
+          media_content_id: media-source://radio_browser/country/FR
+    else:
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.badezimmer
+      data:
+        media_content_id: FV:2/2
+        media_content_type: favorite_item_id
+      metadata:
+        title: RTS Couleur 3 104.2 (Indie Music)
+        thumbnail: http://cdn-radiotime-logos.tunein.com/s15474q.png
+        media_class: genre
+        children_media_class:
+        navigateIds:
+        - {}
+        - media_content_type: favorites
+          media_content_id: ''
+        - media_content_type: favorites_folder
+          media_content_id: object.item.audioItem.audioBroadcast
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.6
+      target:
+        device_id: 91c4217e42a10b73ecb962aa4df5ce73
+  mode: single
+- id: '1679577481294'
+  alias: test brightness transition with triggers
+  description: ''
+  trigger:
+  - platform: time_pattern
+    seconds: /20
+  condition: []
+  action: []
   mode: single
