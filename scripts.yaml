@@ -117,3 +117,23 @@ how_are_you_doing_on_badezimmer:
       - media_content_type: provider
         media_content_id: media-source://tts/google_translate?message=how+are+you+doing
   mode: single
+play_dynamit:
+  alias: Play Dynamit (works)
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.family_room_tv
+    data:
+      media_content_id: media-source://media_source/local/SayHi-StefanieHeinzmann-Dynamit.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: SayHi-StefanieHeinzmann-Dynamit.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  mode: single
+  icon: mdi:file-music
