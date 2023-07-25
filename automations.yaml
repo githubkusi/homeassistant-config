@@ -1,152 +1,529 @@
-- id: "1668538185083"
+- id: '1668538185083'
   alias: SelectComputer
-  description: ""
+  description: ''
   trigger: []
   condition: []
   action:
-    - service: media_player.select_source
-      data:
-        source: Computer
-      target:
-        device_id: 061aa623994d3c7cf586bd085e2fce66
+  - service: media_player.select_source
+    data:
+      source: Computer
+    target:
+      device_id: 061aa623994d3c7cf586bd085e2fce66
   mode: single
-- id: "1668867034619"
+- id: '1668867034619'
   alias: Licht Küche Mobil
-  description: ""
+  description: ''
   use_blueprint:
     path: SeanM/zha-aqara-wireless-mini-switch.yaml
     input:
       aqara_mini_switch: 2c5023272665028ae1e5892d1515994e
       button_single_press:
-        - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-          domain: light
-          entity_id: light.kinderzimmer
-          type: brightness_increase
+      - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+        domain: light
+        entity_id: light.kinderzimmer
+        type: brightness_increase
       button_long_press:
-        - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-          domain: light
-          entity_id: light.kinderzimmer
-          type: brightness_decrease
+      - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+        domain: light
+        entity_id: light.kinderzimmer
+        type: brightness_decrease
       button_double_press:
-        - type: turn_off
-          device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-          entity_id: light.kinderzimmer
-          domain: light
-- id: "1669832462775"
+      - type: turn_off
+        device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+        entity_id: light.kinderzimmer
+        domain: light
+- id: '1669832462775'
   alias: Weihnachtbeleuchtung On
-  description: ""
+  description: ''
   trigger:
-    - platform: time
-      at: "17:00:00"
+  - platform: time
+    at: '17:00:00'
   condition: []
   action:
-    - type: turn_on
-      device_id: e0a513b4dbbee62d0915f6d969facda0
-      entity_id: switch.hombli_smart_socket_1
-      domain: switch
+  - type: turn_on
+    device_id: e0a513b4dbbee62d0915f6d969facda0
+    entity_id: switch.hombli_smart_socket_1
+    domain: switch
   mode: single
-- id: "1669832519068"
+- id: '1669832519068'
   alias: Weihnachtbeleuchtung Off
-  description: ""
+  description: ''
   trigger:
-    - platform: time
-      at: "23:00:00"
+  - platform: time
+    at: '23:00:00'
   condition: []
   action:
-    - type: turn_off
-      device_id: e0a513b4dbbee62d0915f6d969facda0
-      entity_id: switch.hombli_smart_socket_1
-      domain: switch
+  - type: turn_off
+    device_id: e0a513b4dbbee62d0915f6d969facda0
+    entity_id: switch.hombli_smart_socket_1
+    domain: switch
   mode: single
-- id: "1669895061075"
+- id: '1669895061075'
   alias: Küche Licht N Long Push
-  description: ""
+  description: ''
   trigger:
-    - platform: device
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      domain: shelly
-      type: long_push
-      subtype: button1
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: long_push
+    subtype: button1
   condition: []
   action:
-    - type: toggle
-      device_id: 62800ac78a288d382f57db3c0545906d
-      entity_id: light.spuelbecken
-      domain: light
+  - type: toggle
+    device_id: 62800ac78a288d382f57db3c0545906d
+    entity_id: light.spuelbecken
+    domain: light
   mode: single
-- id: "1669898938917"
+- id: '1669898938917'
   alias: Küche Licht N Single Push
-  description: ""
+  description: ''
   trigger:
-    - platform: device
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      domain: shelly
-      type: single_push
-      subtype: button1
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: single_push
+    subtype: button1
   condition: []
   action:
-    - type: toggle
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      entity_id: light.kueche
-      domain: light
+  - type: toggle
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    entity_id: light.kueche
+    domain: light
   mode: single
-- id: "1670152299285"
+- id: '1670152299285'
   alias: Badezimmer Nat Play Tag
-  description: ""
+  description: ''
   trigger:
-    - device_id: 31cfe845d69d3416c4319e383f33659e
-      domain: zha
-      platform: device
-      type: remote_button_short_press
-      subtype: remote_button_short_press
-    - platform: device
-      type: turned_on
-      device_id: 9cdc61049d2b05bba87540ebda2a38b6
-      entity_id: light.badezimmer
-      domain: light
+  - device_id: 31cfe845d69d3416c4319e383f33659e
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: remote_button_short_press
+  - platform: device
+    type: turned_on
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
   condition:
-    - condition: time
-      before: "19:00:00"
-      alias: Before 7pm
+  - condition: time
+    before: '19:00:00'
+    alias: Before 7pm
   action:
-    - service: media_player.play_media
-      target:
-        entity_id: media_player.badezimmer
-      data:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.badezimmer
+    data:
+      media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0ITaQvQ4I118J36BOHm1pd
+      media_content_type: spotify://playlist
+    metadata:
+      title: Nathalie golden gaul
+      thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2735a15602b01795514d058b6edab67616d0000b2739a3da6b52373b762009671cbab67616d0000b273c82a59431ee475300e2f618aab67616d0000b273ca40908d43a2a80fb34de8a3
+      media_class: playlist
+      children_media_class: track
+      navigateIds:
+      - {}
+      - media_content_type: spotify://library
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
+      - media_content_type: spotify://current_user_playlists
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
+      - media_content_type: spotify://playlist
         media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0ITaQvQ4I118J36BOHm1pd
-        media_content_type: spotify://playlist
+    enabled: false
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.badezimmer
+    data:
+      media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:6ouM7lgnROKiwCbLYQjQQT
+      media_content_type: spotify://playlist
+    metadata:
+      title: Culture francaise
+      thumbnail: https://mosaic.scdn.co/640/ab67616d0000b273159a5ce13b0c1657c87b96bcab67616d0000b2731a33af0f0829ce05885c7bc7ab67616d0000b2735c165929dde4dae330ba33d2ab67616d0000b2735ef15ae660d20a98d43721f1
+      media_class: playlist
+      children_media_class: track
+      navigateIds:
+      - {}
+      - media_content_type: spotify://library
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
+      - media_content_type: spotify://current_user_playlists
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
+    enabled: false
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.badezimmer
+    data:
+      media_content_id: FV:2/2
+      media_content_type: favorite_item_id
+    metadata:
+      title: RTS Couleur 3 104.2 (Indie Music)
+      thumbnail: http://cdn-radiotime-logos.tunein.com/s15474q.png
+      media_class: genre
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: favorites
+        media_content_id: ''
+      - media_content_type: favorites_folder
+        media_content_id: object.item.audioItem.audioBroadcast
+  mode: single
+- id: '1670159204162'
+  alias: Terrasse Girlande Short Push
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    domain: shelly
+    type: single_push
+    subtype: button1
+  condition: []
+  action:
+  - type: toggle
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    entity_id: light.terrasse_steckdose
+    domain: light
+  mode: single
+- id: '1670162910894'
+  alias: Terrasse Long Push Hallo
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    domain: shelly
+    type: long_push
+    subtype: button1
+  condition: []
+  action:
+  - type: toggle
+    device_id: 80c99e91ca7ffea365533d0c36ccfafe
+    entity_id: switch.hombly_socket_2
+    domain: switch
+  mode: single
+- id: '1670318646476'
+  alias: Badezimmer Nat Stop
+  trigger:
+  - device_id: 31cfe845d69d3416c4319e383f33659e
+    domain: zha
+    platform: device
+    type: remote_button_long_press
+    subtype: remote_button_long_press
+    enabled: false
+  - platform: device
+    type: turned_off
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
+  condition: []
+  action:
+  - service: media_player.media_stop
+    entity_id: media_player.badezimmer
+  mode: single
+- id: '1670343600109'
+  alias: Badezimmer Nat stop on light off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
+  condition: []
+  action:
+  - service: media_player.media_stop
+    data: {}
+    target:
+      entity_id: media_player.badezimmer
+  mode: single
+- id: '1670442525029'
+  alias: Terrasse Long Push Beamer
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    domain: shelly
+    type: long_push
+    subtype: button1
+  condition: []
+  action:
+  - service: rest_command.beamer_on
+    data: {}
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.computer_beamer
+  mode: single
+- id: '1670499646756'
+  alias: Küche Licht S Single Push
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: single_push
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    entity_id: light.kueche
+    domain: light
+  mode: single
+- id: '1670508071488'
+  alias: Küche Licht S Long Push
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: long_push
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: bdd792544ccee16e7e5081589ad95f9a
+    entity_id: switch.hombly_socket_3
+    domain: switch
+  mode: single
+- id: '1675108135406'
+  alias: Girlande Fenster
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: single
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: a7ccfc6164c35010220130aa3783a3dc
+    entity_id: switch.fenster_steckdose
+    domain: switch
+  mode: single
+- id: '1675332855531'
+  alias: Küchentisch Gedimmt
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: long
+    subtype: button1
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness: 29
+    target:
+      device_id: 0cb3db7867669f14d5560252bad5abc4
+  mode: single
+- id: '1675334841799'
+  alias: Küchentisch off->on
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: single
+    subtype: button1
+  condition:
+  - condition: device
+    type: is_off
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+  action:
+  - type: turn_on
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1675335071609'
+  alias: Küchentisch on->off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: single
+    subtype: button1
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+  action:
+  - type: turn_off
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    entity_id: light.kuechentisch
+    domain: light
+  mode: single
+- id: '1675369154855'
+  alias: Küche S Girlande
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: long_push
+    subtype: button2
+  condition: []
+  action:
+  - type: toggle
+    device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
+    entity_id: switch.terrasse_girlande
+    domain: switch
+  mode: single
+- id: '1675379653120'
+  alias: test slow turn on
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 95b36309b518dfe168d35762ee1a045c
+    domain: shelly
+    type: double_push
+    subtype: button2
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      transition: 25
+      brightness_pct: 25
+    target:
+      device_id: 0cb3db7867669f14d5560252bad5abc4
+  mode: single
+- id: '1675450639597'
+  alias: Mädels Music Play
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0cb3db7867669f14d5560252bad5abc4
+    domain: shelly
+    type: long
+    subtype: button2
+  condition: []
+  action:
+  - service: media_player.select_source
+    data:
+      source: Marantz NR1510
+    target:
+      entity_id: media_player.spotify_spotifykusi
+    enabled: true
+  - if:
+    - condition: device
+      device_id: 061aa623994d3c7cf586bd085e2fce66
+      domain: media_player
+      entity_id: media_player.marantz_heos
+      type: is_playing
+    then:
+    - event: kusi
+      event_data:
+        state: spotify playing, stop now
+    - service: media_player.media_pause
+      data: {}
+      target:
+        device_id: 8372f3f81f225cb560d9081a91ff1b24
+    else:
+    - event: kusi
+      event_data:
+        state: nothings playing, play Mettmenstetten now
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.spotify_spotifykusi
+      data:
+        media_content_id: spotify:track:6oZLgfZMI00Lvb0dNUKhFL
+        media_content_type: spotify://track
       metadata:
-        title: Nathalie golden gaul
-        thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2735a15602b01795514d058b6edab67616d0000b2739a3da6b52373b762009671cbab67616d0000b273c82a59431ee475300e2f618aab67616d0000b273ca40908d43a2a80fb34de8a3
-        media_class: playlist
-        children_media_class: track
+        title: Atemlos durch die Nacht - Bassflow Main Radio/Video Mix
+        thumbnail: https://i.scdn.co/image/ab67616d0000b27398e141628620cd4c21df97fe
+        media_class: track
+        children_media_class:
         navigateIds:
-          - {}
-          - media_content_type: spotify://library
-            media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
-          - media_content_type: spotify://current_user_playlists
-            media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
-          - media_content_type: spotify://playlist
-            media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0ITaQvQ4I118J36BOHm1pd
-      enabled: false
+        - {}
+        - media_content_type: spotify://current_user_saved_tracks
+          media_content_id: current_user_saved_tracks
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.45
+      target:
+        device_id:
+        - 061aa623994d3c7cf586bd085e2fce66
+        - 8372f3f81f225cb560d9081a91ff1b24
+    enabled: true
+    alias: conditional play or stop
+  mode: single
+- id: '1676670464465'
+  alias: 'Abwesenheit: Spülbecken on'
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:55:00'
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.spuelbecken
+  mode: single
+- id: '1676670544335'
+  alias: 'Abwesenheit: Spülbecken off'
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:30:00'
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.spuelbecken
+  mode: single
+- id: '1678309430397'
+  alias: Badezimmer Nat Play Tag vs Abend
+  description: ''
+  trigger:
+  - device_id: 31cfe845d69d3416c4319e383f33659e
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: remote_button_short_press
+    enabled: false
+  - platform: device
+    type: turned_on
+    device_id: 9cdc61049d2b05bba87540ebda2a38b6
+    entity_id: light.badezimmer
+    domain: light
+  condition: []
+  action:
+  - if:
+    - condition: time
+      before: 07:00:00
+      after: sensor.sun_next_midnight
+      alias: Is Night
+    then:
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.35
+      target:
+        device_id: 91c4217e42a10b73ecb962aa4df5ce73
     - service: media_player.play_media
       target:
         entity_id: media_player.badezimmer
       data:
-        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:6ouM7lgnROKiwCbLYQjQQT
-        media_content_type: spotify://playlist
+        media_content_id: media-source://radio_browser/21b83eb8-370d-4076-a9bb-3d443fa5a449
+        media_content_type: audio/aac
       metadata:
-        title: Culture francaise
-        thumbnail: https://mosaic.scdn.co/640/ab67616d0000b273159a5ce13b0c1657c87b96bcab67616d0000b2731a33af0f0829ce05885c7bc7ab67616d0000b2735c165929dde4dae330ba33d2ab67616d0000b2735ef15ae660d20a98d43721f1
-        media_class: playlist
-        children_media_class: track
+        title: France Musique
+        thumbnail: https://www.radiofrance.fr/dist/favicons/logo-120.png
+        media_class: music
+        children_media_class:
         navigateIds:
-          - {}
-          - media_content_type: spotify://library
-            media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
-          - media_content_type: spotify://current_user_playlists
-            media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
-      enabled: false
+        - {}
+        - media_content_type: app
+          media_content_id: media-source://radio_browser
+        - media_content_type: music
+          media_content_id: media-source://radio_browser/country/FR
+    else:
     - service: media_player.play_media
       target:
         entity_id: media_player.badezimmer
@@ -159,480 +536,212 @@
         media_class: genre
         children_media_class:
         navigateIds:
-          - {}
-          - media_content_type: favorites
-            media_content_id: ""
-          - media_content_type: favorites_folder
-            media_content_id: object.item.audioItem.audioBroadcast
-  mode: single
-- id: "1670159204162"
-  alias: Terrasse Girlande Short Push
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
-      domain: shelly
-      type: single_push
-      subtype: button1
-  condition: []
-  action:
-    - type: toggle
-      device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
-      entity_id: light.terrasse_steckdose
-      domain: light
-  mode: single
-- id: "1670162910894"
-  alias: Terrasse Long Push Hallo
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
-      domain: shelly
-      type: long_push
-      subtype: button1
-  condition: []
-  action:
-    - type: toggle
-      device_id: 80c99e91ca7ffea365533d0c36ccfafe
-      entity_id: switch.hombly_socket_2
-      domain: switch
-  mode: single
-- id: "1670318646476"
-  alias: Badezimmer Nat Stop
-  trigger:
-    - device_id: 31cfe845d69d3416c4319e383f33659e
-      domain: zha
-      platform: device
-      type: remote_button_long_press
-      subtype: remote_button_long_press
-      enabled: false
-    - platform: device
-      type: turned_off
-      device_id: 9cdc61049d2b05bba87540ebda2a38b6
-      entity_id: light.badezimmer
-      domain: light
-  condition: []
-  action:
-    - service: media_player.media_stop
-      entity_id: media_player.badezimmer
-  mode: single
-- id: "1670343600109"
-  alias: Badezimmer Nat stop on light off
-  description: ""
-  trigger:
-    - platform: device
-      type: turned_off
-      device_id: 9cdc61049d2b05bba87540ebda2a38b6
-      entity_id: light.badezimmer
-      domain: light
-  condition: []
-  action:
-    - service: media_player.media_stop
-      data: {}
-      target:
-        entity_id: media_player.badezimmer
-  mode: single
-- id: "1670442525029"
-  alias: Terrasse Long Push Beamer
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
-      domain: shelly
-      type: long_push
-      subtype: button1
-  condition: []
-  action:
-    - service: rest_command.beamer_on
-      data: {}
-    - service: switch.turn_on
-      data: {}
-      target:
-        entity_id: switch.computer_beamer
-  mode: single
-- id: "1670499646756"
-  alias: Küche Licht S Single Push
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      domain: shelly
-      type: single_push
-      subtype: button2
-  condition: []
-  action:
-    - type: toggle
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      entity_id: light.kueche
-      domain: light
-  mode: single
-- id: "1670508071488"
-  alias: Küche Licht S Long Push
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      domain: shelly
-      type: long_push
-      subtype: button2
-  condition: []
-  action:
-    - type: toggle
-      device_id: bdd792544ccee16e7e5081589ad95f9a
-      entity_id: switch.hombly_socket_3
-      domain: switch
-  mode: single
-- id: "1675108135406"
-  alias: Girlande Fenster
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      domain: shelly
-      type: single
-      subtype: button2
-  condition: []
-  action:
-    - type: toggle
-      device_id: a7ccfc6164c35010220130aa3783a3dc
-      entity_id: switch.fenster_steckdose
-      domain: switch
-  mode: single
-- id: "1675332855531"
-  alias: Küchentisch Gedimmt
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      domain: shelly
-      type: long
-      subtype: button1
-  condition: []
-  action:
-    - service: light.turn_on
+        - {}
+        - media_content_type: favorites
+          media_content_id: ''
+        - media_content_type: favorites_folder
+          media_content_id: object.item.audioItem.audioBroadcast
+    - service: media_player.volume_set
       data:
-        brightness: 29
+        volume_level: 0.6
       target:
-        device_id: 0cb3db7867669f14d5560252bad5abc4
+        device_id: 91c4217e42a10b73ecb962aa4df5ce73
+    enabled: true
   mode: single
-- id: "1675334841799"
-  alias: Küchentisch off->on
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      domain: shelly
-      type: single
-      subtype: button1
-  condition:
-    - condition: device
-      type: is_off
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      entity_id: light.kuechentisch
-      domain: light
-  action:
-    - type: turn_on
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      entity_id: light.kuechentisch
-      domain: light
-      brightness_pct: 100
-  mode: single
-- id: "1675335071609"
-  alias: Küchentisch on->off
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      domain: shelly
-      type: single
-      subtype: button1
-  condition:
-    - condition: device
-      type: is_on
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      entity_id: light.kuechentisch
-      domain: light
-  action:
-    - type: turn_off
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      entity_id: light.kuechentisch
-      domain: light
-  mode: single
-- id: "1675369154855"
-  alias: Küche S Girlande
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      domain: shelly
-      type: long_push
-      subtype: button2
-  condition: []
-  action:
-    - type: toggle
-      device_id: 6b4fa1ddb6ab610e2fc7c621fc02061a
-      entity_id: switch.terrasse_girlande
-      domain: switch
-  mode: single
-- id: "1675379653120"
-  alias: test slow turn on
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 95b36309b518dfe168d35762ee1a045c
-      domain: shelly
-      type: double_push
-      subtype: button2
-  condition: []
-  action:
-    - service: light.turn_on
-      data:
-        transition: 25
-        brightness_pct: 25
-      target:
-        device_id: 0cb3db7867669f14d5560252bad5abc4
-  mode: single
-- id: "1675450639597"
-  alias: Mädels Music Play
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      domain: shelly
-      type: long
-      subtype: button2
-  condition: []
-  action:
-    - service: media_player.select_source
-      data:
-        source: Marantz NR1510
-      target:
-        entity_id: media_player.spotify_spotifykusi
-      enabled: true
-    - if:
-        - condition: device
-          device_id: 061aa623994d3c7cf586bd085e2fce66
-          domain: media_player
-          entity_id: media_player.marantz_heos
-          type: is_playing
-      then:
-        - event: kusi
-          event_data:
-            state: spotify playing, stop now
-        - service: media_player.media_pause
-          data: {}
-          target:
-            device_id: 8372f3f81f225cb560d9081a91ff1b24
-      else:
-        - event: kusi
-          event_data:
-            state: nothings playing, play Mettmenstetten now
-        - service: media_player.play_media
-          target:
-            entity_id: media_player.spotify_spotifykusi
-          data:
-            media_content_id: spotify:track:6oZLgfZMI00Lvb0dNUKhFL
-            media_content_type: spotify://track
-          metadata:
-            title: Atemlos durch die Nacht - Bassflow Main Radio/Video Mix
-            thumbnail: https://i.scdn.co/image/ab67616d0000b27398e141628620cd4c21df97fe
-            media_class: track
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: spotify://current_user_saved_tracks
-                media_content_id: current_user_saved_tracks
-        - service: media_player.volume_set
-          data:
-            volume_level: 0.45
-          target:
-            device_id:
-              - 061aa623994d3c7cf586bd085e2fce66
-              - 8372f3f81f225cb560d9081a91ff1b24
-      enabled: true
-      alias: conditional play or stop
-  mode: single
-- id: "1675554209925"
-  alias: debug condition
-  description: ""
-  trigger: []
-  condition: []
-  action:
-    - if:
-        - condition: template
-          value_template: "{{ false }}"
-      then:
-        - event: kusi
-          event_data:
-            kusi: then
-      else:
-        - event: kusi
-          event_data:
-            kusi: else
-  mode: single
-- id: "1675606576503"
-  alias: debug condition
-  description: ""
-  trigger:
-    - platform: device
-      device_id: 0cb3db7867669f14d5560252bad5abc4
-      domain: shelly
-      type: long
-      subtype: button2
-  condition: []
-  action:
-    - if:
-        - condition: template
-          value_template: "{{ false }}"
-          enabled: false
-        - condition: template
-          value_template: "{{ true }}"
-      then:
-        - event: kusi
-          event_data:
-            state: spotify playing, stop now
-      else:
-        - event: kusi
-          event_data:
-            state: nothings playing, play Mettmenstetten now
-      enabled: true
-  mode: single
-- id: "1676670464465"
-  alias: "Abwesenheit: Spülbecken on"
-  description: ""
-  trigger:
-    - platform: time
-      at: "17:55:00"
-  condition: []
-  action:
-    - service: light.turn_on
-      data: {}
-      target:
-        entity_id: light.spuelbecken
-  mode: single
-- id: "1676670544335"
-  alias: "Abwesenheit: Spülbecken off"
-  description: ""
-  trigger:
-    - platform: time
-      at: "23:30:00"
-  condition: []
-  action:
-    - service: light.turn_off
-      data: {}
-      target:
-        entity_id: light.spuelbecken
-  mode: single
-- id: "1678309430397"
-  alias: Badezimmer Nat Play Tag vs Abend
-  description: ""
-  trigger:
-    - device_id: 31cfe845d69d3416c4319e383f33659e
-      domain: zha
-      platform: device
-      type: remote_button_short_press
-      subtype: remote_button_short_press
-      enabled: false
-    - platform: device
-      type: turned_on
-      device_id: 9cdc61049d2b05bba87540ebda2a38b6
-      entity_id: light.badezimmer
-      domain: light
-  condition: []
-  action:
-    - if:
-        - condition: time
-          before: 07:00:00
-          after: sensor.sun_next_midnight
-          alias: Is Night
-      then:
-        - service: media_player.volume_set
-          data:
-            volume_level: 0.35
-          target:
-            device_id: 91c4217e42a10b73ecb962aa4df5ce73
-        - service: media_player.play_media
-          target:
-            entity_id: media_player.badezimmer
-          data:
-            media_content_id: media-source://radio_browser/21b83eb8-370d-4076-a9bb-3d443fa5a449
-            media_content_type: audio/aac
-          metadata:
-            title: France Musique
-            thumbnail: https://www.radiofrance.fr/dist/favicons/logo-120.png
-            media_class: music
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: app
-                media_content_id: media-source://radio_browser
-              - media_content_type: music
-                media_content_id: media-source://radio_browser/country/FR
-      else:
-        - service: media_player.play_media
-          target:
-            entity_id: media_player.badezimmer
-          data:
-            media_content_id: FV:2/2
-            media_content_type: favorite_item_id
-          metadata:
-            title: RTS Couleur 3 104.2 (Indie Music)
-            thumbnail: http://cdn-radiotime-logos.tunein.com/s15474q.png
-            media_class: genre
-            children_media_class:
-            navigateIds:
-              - {}
-              - media_content_type: favorites
-                media_content_id: ""
-              - media_content_type: favorites_folder
-                media_content_id: object.item.audioItem.audioBroadcast
-        - service: media_player.volume_set
-          data:
-            volume_level: 0.6
-          target:
-            device_id: 91c4217e42a10b73ecb962aa4df5ce73
-      enabled: true
-  mode: single
-- id: "1679577481294"
+- id: '1679577481294'
   alias: test brightness transition with triggers
-  description: ""
+  description: ''
   trigger:
-    - platform: time_pattern
-      seconds: /20
+  - platform: time_pattern
+    seconds: /20
   condition: []
   action: []
   mode: single
-- id: "1681396624509"
-  alias: debug event on aqara short press
-  description: ""
-  trigger:
-    - device_id: 31cfe845d69d3416c4319e383f33659e
-      domain: zha
-      platform: device
-      type: remote_button_short_press
-      subtype: remote_button_short_press
-  condition: []
-  action:
-    - event: kinderzimmer-fade-in
-      event_data:
-        transition_sec: 20
-  mode: single
-- id: "1681401180139"
+- id: '1681401180139'
   alias: Guten Morgen Kinder
   description: Slowly turn on light in Kinderzimmer
   trigger:
-    - platform: time
-      at: 06:30:00
+  - platform: time
+    at: 06:30:00
   condition:
-    - condition: time
-      weekday:
-        - mon
-        - tue
-        - wed
-        - thu
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
   action:
-    - event: kinderzimmer-fade-in
-      # listener in node-red
-      event_data:
-        transition_sec: 1800
+  - event: kinderzimmer-fade-in
+    event_data:
+      transition_sec: 1800
   mode: single
+- id: '1689027618984'
+  alias: Aqara 1 - Play Dynamit
+  description: ''
+  trigger:
+  - device_id: 31cfe845d69d3416c4319e383f33659e
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: remote_button_short_press
+  condition: []
+  action:
+  - service: media_player.select_source
+    data:
+      source: Chromecast
+    target:
+      entity_id: media_player.marantz_denonavr
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.family_room_tv
+    data:
+      media_content_id: media-source://media_source/local/SayHi-StefanieHeinzmann-Dynamit.mp3
+      media_content_type: audio/mpeg
+    metadata:
+      title: SayHi-StefanieHeinzmann-Dynamit.mp3
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.44
+    target:
+      entity_id:
+      - media_player.marantz_denonavr
+  mode: single
+- id: '1689058264837'
+  alias: Aqara 1 - Stop
+  description: ''
+  trigger:
+  - device_id: 31cfe845d69d3416c4319e383f33659e
+    domain: zha
+    platform: device
+    type: remote_button_long_press
+    subtype: remote_button_long_press
+  condition: []
+  action:
+  - service: media_player.media_stop
+    data: {}
+    target:
+      device_id: 2580e53e4ab5999c83cf3d73a1f24128
+  mode: single
+- id: '1690073921090'
+  alias: Kaffeemaschine
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: d390c235059679ec726370f890a4a802
+    entity_id: 12df00c93030e0c7e36fb80e226b9a57
+    domain: switch
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - type: turn_off
+    device_id: d390c235059679ec726370f890a4a802
+    entity_id: 12df00c93030e0c7e36fb80e226b9a57
+    domain: switch
+  mode: single
+- id: '1690300048666'
+  alias: Badezimmer No Motion
+  description: ''
+  trigger:
+  - type: not_occupied
+    platform: device
+    device_id: f72f039c782492ef4a77b6701d696ea9
+    entity_id: 209b4d23f8510a66a582dff1465b3fe8
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.badezimmer
+  mode: single
+- id: '1690300336558'
+  alias: Badezimmer Motion
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: f72f039c782492ef4a77b6701d696ea9
+    entity_id: 209b4d23f8510a66a582dff1465b3fe8
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition:
+  - type: is_illuminance
+    condition: device
+    device_id: f72f039c782492ef4a77b6701d696ea9
+    entity_id: 9be1afc8073619ca9c5d5faaeede24ee
+    domain: sensor
+    below: 5
+    enabled: false
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.badezimmer
+  mode: single
+- id: '1690305457706'
+  alias: Badezimmer Motion With Illuminance
+  description: ''
+  use_blueprint:
+    path: thanpolas/motion-illuminance-v2.yaml
+    input:
+      motion_entity: binary_sensor.hue_badezimmer_occupancy
+      lux_entity: sensor.hue_badezimmer_illuminance
+      light_entity: light.badezimmer
+      no_motion_wait: 10
+      lux_level: 306
+      desired_scene:
+        entity_id: scene.at_home
+- id: '1690305707081'
+  alias: Test HA Motion Blueprint
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.hue_badezimmer_occupancy
+      light_target:
+        entity_id: light.badezimmer
+      no_motion_wait: 10
+- id: '1690314839505'
+  alias: Badezimmer Licht Motion/Illuminance
+  description: ''
+  use_blueprint:
+    path: kusi/motion_light_kusi.yaml
+    input:
+      motion_entity: binary_sensor.hue_badezimmer_occupancy
+      lux_entity: sensor.hue_badezimmer_illuminance
+      lux_level: 20
+      light_target:
+        entity_id: light.badezimmer
+      no_motion_wait: 10
+- id: '1690315161523'
+  alias: Küche Licht Motion/Illuminance
+  description: ''
+  use_blueprint:
+    path: kusi/motion_light_kusi.yaml
+    input:
+      motion_entity: binary_sensor.hue_kueche_occupancy
+      lux_entity: sensor.hue_kueche_illuminance
+      lux_level: 20
+      light_target:
+        entity_id: light.spuelbecken
+      no_motion_wait: 10
