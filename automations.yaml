@@ -200,12 +200,6 @@
 - id: '1670318646476'
   alias: Badezimmer Nat Stop
   trigger:
-  - device_id: 31cfe845d69d3416c4319e383f33659e
-    domain: zha
-    platform: device
-    type: remote_button_long_press
-    subtype: remote_button_long_press
-    enabled: false
   - platform: device
     type: turned_off
     device_id: 9cdc61049d2b05bba87540ebda2a38b6
