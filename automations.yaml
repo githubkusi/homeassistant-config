@@ -495,10 +495,41 @@
   action:
   - if:
     - condition: time
-      before: 07:00:00
-      after: sensor.sun_next_midnight
+      before: 06:00:00
       alias: Is Night
+      after: '21:00:00'
+      weekday:
+      - sun
+      - mon
+      - tue
+      - wed
+      - fri
+      - thu
+      - sat
     then:
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.15
+      target:
+        device_id: 91c4217e42a10b73ecb962aa4df5ce73
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.badezimmer
+      data:
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:24Yj6wOxcHFcYEbjS22EdX
+        media_content_type: spotify://playlist
+      metadata:
+        title: Morning power
+        thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2733862d62a50dc6b928651bdebab67616d0000b27352e8aa3275f7a3ee9c1e3628ab67616d0000b273754b2fddebe7039fdb912837ab67616d0000b273df7cddc2d32ef9df762d5a30
+        media_class: playlist
+        children_media_class: track
+        navigateIds:
+        - {}
+        - media_content_type: spotify://library
+          media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
+        - media_content_type: spotify://current_user_playlists
+          media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
+    else:
     - service: media_player.volume_set
       data:
         volume_level: 0.35
@@ -508,11 +539,11 @@
       target:
         entity_id: media_player.badezimmer
       data:
-        media_content_id: media-source://radio_browser/21b83eb8-370d-4076-a9bb-3d443fa5a449
-        media_content_type: audio/aac
+        media_content_id: media-source://radio_browser/ff25f556-1f64-4e7d-9c3f-68e51d3a43c3
+        media_content_type: audio/mpeg
       metadata:
-        title: France Musique
-        thumbnail: https://www.radiofrance.fr/dist/favicons/logo-120.png
+        title: Latina reggaeton
+        thumbnail: ''
         media_class: music
         children_media_class:
         navigateIds:
@@ -521,29 +552,6 @@
           media_content_id: media-source://radio_browser
         - media_content_type: music
           media_content_id: media-source://radio_browser/country/FR
-    else:
-    - service: media_player.play_media
-      target:
-        entity_id: media_player.badezimmer
-      data:
-        media_content_id: FV:2/2
-        media_content_type: favorite_item_id
-      metadata:
-        title: RTS Couleur 3 104.2 (Indie Music)
-        thumbnail: http://cdn-radiotime-logos.tunein.com/s15474q.png
-        media_class: genre
-        children_media_class:
-        navigateIds:
-        - {}
-        - media_content_type: favorites
-          media_content_id: ''
-        - media_content_type: favorites_folder
-          media_content_id: object.item.audioItem.audioBroadcast
-    - service: media_player.volume_set
-      data:
-        volume_level: 0.6
-      target:
-        device_id: 91c4217e42a10b73ecb962aa4df5ce73
     enabled: true
   mode: single
 - id: '1679577481294'
