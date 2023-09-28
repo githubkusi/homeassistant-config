@@ -305,7 +305,7 @@
   action:
   - service: light.turn_on
     data:
-      brightness: 29
+      brightness: 64
     target:
       device_id: 0cb3db7867669f14d5560252bad5abc4
   mode: single
@@ -487,6 +487,10 @@
     device_id: 9cdc61049d2b05bba87540ebda2a38b6
     entity_id: light.badezimmer
     domain: light
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
   condition: []
   action:
   - if:
