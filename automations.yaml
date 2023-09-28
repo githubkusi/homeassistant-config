@@ -738,7 +738,7 @@
       lux_level: 20
       light_target:
         entity_id: light.badezimmer
-      no_motion_wait: 10
+      no_motion_wait: 602
 - id: '1690315161523'
   alias: Küche Licht Motion/Illuminance
   description: ''
@@ -747,7 +747,184 @@
     input:
       motion_entity: binary_sensor.hue_kueche_occupancy
       lux_entity: sensor.hue_kueche_illuminance
-      lux_level: 20
+      lux_level: 10
       light_target:
         entity_id: light.spuelbecken
-      no_motion_wait: 10
+      no_motion_wait: 232
+- id: '1691951810023'
+  alias: Badezimmer Motion
+  description: Standard HA motion-activated light
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.hue_badezimmer_occupancy
+      light_target:
+        entity_id: light.badezimmer
+      no_motion_wait: 300
+- id: '1691952261844'
+  alias: Küche Licht Motion
+  description: Standard HA motion activated light
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.hue_kueche_occupancy
+      no_motion_wait: 300
+      light_target:
+        entity_id: light.spuelbecken
+- id: '1694692288461'
+  alias: Kinderzimmer Licht an
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    domain: shelly
+    type: single
+    subtype: button1
+  condition:
+  - condition: device
+    type: is_off
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: 2a8b78dde6416d91246c1d3ee7bb194b
+    domain: light
+  action:
+  - type: turn_on
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: 2a8b78dde6416d91246c1d3ee7bb194b
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1694692653825'
+  alias: Kinderzimmer Licht aus
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    domain: shelly
+    type: single
+    subtype: button1
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: 2a8b78dde6416d91246c1d3ee7bb194b
+    domain: light
+  action:
+  - type: turn_off
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: 2a8b78dde6416d91246c1d3ee7bb194b
+    domain: light
+  mode: single
+- id: '1694692743801'
+  alias: Kinderzimmer Licht gedimmt
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    domain: shelly
+    type: long
+    subtype: button1
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    entity_id: 2a8b78dde6416d91246c1d3ee7bb194b
+    domain: light
+    brightness_pct: 20
+  mode: single
+- id: '1694692956008'
+  alias: Kinderzimmer Musik im Badezimmer
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
+    domain: shelly
+    type: single
+    subtype: button2
+  condition: []
+  action:
+  - if:
+    - condition: device
+      device_id: 91c4217e42a10b73ecb962aa4df5ce73
+      domain: media_player
+      entity_id: d3dc772136221303ef09dcfcb32c6615
+      type: is_playing
+    then:
+    - service: media_player.media_stop
+      data: {}
+      target:
+        device_id: 91c4217e42a10b73ecb962aa4df5ce73
+    else:
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.badezimmer
+      data:
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0X9UAelwIYIT66wGstzi4t
+        media_content_type: spotify://playlist
+      metadata:
+        title: Brunnenfest kids
+        thumbnail: https://mosaic.scdn.co/640/ab67616d0000b273320e4e7ef54225c93987c568ab67616d0000b2736e2c0e81c41d55d8d83e87cfab67616d0000b2737e2e218329c9d2f79717c36fab67616d0000b273d60ccd6a9ec164294db8104b
+        media_class: playlist
+        children_media_class: track
+        navigateIds:
+        - {}
+        - media_content_type: spotify://library
+          media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
+        - media_content_type: spotify://current_user_playlists
+          media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
+        - media_content_type: spotify://playlist
+          media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0X9UAelwIYIT66wGstzi4t
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.76
+      target:
+        device_id: 91c4217e42a10b73ecb962aa4df5ce73
+  mode: single
+- id: '1694715659507'
+  alias: Badezimmer Morgenmusik
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.badezimmer
+    data:
+      media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0X9UAelwIYIT66wGstzi4t
+      media_content_type: spotify://playlist
+    metadata:
+      title: Brunnenfest kids
+      thumbnail: https://mosaic.scdn.co/640/ab67616d0000b273320e4e7ef54225c93987c568ab67616d0000b2736e2c0e81c41d55d8d83e87cfab67616d0000b2737e2e218329c9d2f79717c36fab67616d0000b273d60ccd6a9ec164294db8104b
+      media_class: playlist
+      children_media_class: track
+      navigateIds:
+      - {}
+      - media_content_type: spotify://library
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
+      - media_content_type: spotify://current_user_playlists
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
+      - media_content_type: spotify://playlist
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0X9UAelwIYIT66wGstzi4t
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.64
+    target:
+      device_id: 91c4217e42a10b73ecb962aa4df5ce73
+  - delay:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - service: media_player.media_stop
+    data: {}
+    target:
+      device_id: 91c4217e42a10b73ecb962aa4df5ce73
+  mode: single

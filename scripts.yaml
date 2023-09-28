@@ -1,29 +1,3 @@
-guten_morgen_kinder:
-  alias: Guten Morgen Kinder
-  sequence:
-  - type: turn_off
-    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-    entity_id: light.shellydimmer2_34945471b1bb
-    domain: light
-  - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-    domain: light
-    entity_id: light.shellydimmer2_34945471b1bb
-    type: brightness_increase
-  mode: single
-  icon: mdi:sun-clock
-asdf:
-  alias: Guten Morgen Kinder
-  sequence:
-  - type: turn_off
-    device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-    entity_id: light.shellydimmer2_34945471b1bb
-    domain: light
-  - device_id: 8b9c9effd2696b0c9a31eb31b6a5679b
-    domain: light
-    entity_id: light.shellydimmer2_34945471b1bb
-    type: brightness_increase
-  mode: single
-  icon: mdi:sun-clock
 play_sayhi:
   sequence:
   - service: media_player.play_media
@@ -137,3 +111,60 @@ play_dynamit:
         media_content_id: media-source://media_source
   mode: single
   icon: mdi:file-music
+radio_wohnzimmer:
+  alias: Radio Wohnzimmer
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.marantz_heos
+    data:
+      media_content_id: media-source://radio_browser/960bf492-0601-11e8-ae97-52543be04c81
+      media_content_type: audio/mpeg
+    metadata:
+      title: Nostalgie
+      thumbnail: https://www.nostalgie.fr/uploads/assets/nostalgie/icons/apple-icon-120x120.png
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://radio_browser
+      - media_content_type: music
+        media_content_id: media-source://radio_browser/popular
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.39
+    target:
+      device_id: 061aa623994d3c7cf586bd085e2fce66
+  mode: single
+  icon: mdi:account-music
+turn_on_computer:
+  alias: Turn on Computer
+  sequence:
+  - if:
+    - condition: device
+      type: is_off
+      device_id: 4a294906b46b9fe74deee09413f8879d
+      entity_id: 323587c3a3b4fbddcfd6b76150f6a6c4
+      domain: light
+    then:
+    - service: light.turn_on
+      data: {}
+      target:
+        device_id: 4a294906b46b9fe74deee09413f8879d
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 15
+        milliseconds: 0
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.computer_office
+  mode: single
+  icon: mdi:laptop

@@ -1,6 +1,6 @@
 blueprint:
-  name: Motion-activated Light with illuminance
-  description: Turn on a light when motion is detected.
+  name: Motion-activated light in a dark environment
+  description: Turn on a light when motion is detected and it is too dark
   domain: automation
   source_url: https://github.com/home-assistant/core/blob/dev/homeassistant/components/automation/blueprints/motion_light.yaml
   input:
@@ -51,6 +51,12 @@ trigger:
   entity_id: !input motion_entity
   from: "off"
   to: "on"
+
+condition:
+  alias: Illuminance threshold is met and lights are not already open
+  condition: numeric_state
+  entity_id: !input lux_entity
+  below: !input lux_level
 
 action:
   - alias: "Turn on the light"

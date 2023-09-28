@@ -100,7 +100,7 @@ binary_sensor:
 
 shell_command:
   turn_off_kiste: "ssh -i /config/ssh_keys/id_rsa -o 'StrictHostKeyChecking=no' kusi@192.168.1.80 'sudo /usr/sbin/poweroff'"
-  turn_off_nii: "ssh -i /config/ssh_keys/id_rsa.nii -o 'StrictHostKeyChecking=no' kusi@192.168.1.44 'sudo systemctl suspend'"
+  turn_off_nii: "ssh -i /config/ssh_keys/id_rsa.nii -o 'StrictHostKeyChecking=no' kusi@192.168.1.44 'sudo systemctl poweroff'"
 
 # https://community.home-assistant.io/t/how-to-toggle-multiple-automations-by-one-button/439132/10
 group:
