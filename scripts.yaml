@@ -168,3 +168,21 @@ turn_on_computer:
       entity_id: switch.computer_office
   mode: single
   icon: mdi:laptop
+kaffeemaschine:
+  alias: Kaffeemaschine
+  sequence:
+  - service: switch.turn_on
+    data: {}
+    target:
+      device_id: d390c235059679ec726370f890a4a802
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: switch.turn_off
+    data: {}
+    target:
+      device_id: d390c235059679ec726370f890a4a802
+  mode: single
+  icon: mdi:coffee-maker
