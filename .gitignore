@@ -8,3 +8,7 @@ secrets.yaml
 known_devices.yaml
 
 ssh_keys
+
+custom_components
+tts
+blueprints

@@ -144,7 +144,7 @@ radio_wohnzimmer:
   mode: single
   icon: mdi:account-music
 turn_on_computer:
-  alias: Turn on Computer
+  alias: Computer und Stromschiene ein
   sequence:
   - if:
     - condition: device

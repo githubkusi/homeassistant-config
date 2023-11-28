@@ -109,3 +109,10 @@ group:
     entities:
       - automation.abwesenheit_spulbecken_off
       - automation.abwesenheit_spulbecken_on
+
+intent_script:
+  HassTurnOn:
+    action:
+      service: light.turn_on
+      target:
+        entity_id: light.buero

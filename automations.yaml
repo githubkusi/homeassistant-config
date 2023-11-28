@@ -516,11 +516,11 @@
       target:
         entity_id: media_player.badezimmer
       data:
-        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:24Yj6wOxcHFcYEbjS22EdX
+        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:3Z8qrVKPg9PcZ0aq5Azed6
         media_content_type: spotify://playlist
       metadata:
-        title: Morning power
-        thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2733862d62a50dc6b928651bdebab67616d0000b27352e8aa3275f7a3ee9c1e3628ab67616d0000b273754b2fddebe7039fdb912837ab67616d0000b273df7cddc2d32ef9df762d5a30
+        title: Brunnenfest evening
+        thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2731442a3c9515d200e10cfd9c5ab67616d0000b2731a9be7530f56737a32d6d558ab67616d0000b273944f09035ef3ddf623261ad1ab67616d0000b2739d3ad3a9fa90bf0dee0ae5be
         media_class: playlist
         children_media_class: track
         navigateIds:
@@ -927,4 +927,66 @@
     data: {}
     target:
       device_id: 91c4217e42a10b73ecb962aa4df5ce73
+  mode: single
+- id: '1696691467909'
+  alias: test TTS
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: tts.google_translate_say
+    data:
+      cache: false
+      entity_id: media_player.kitchen_speaker
+      message: wollen wir unihockey spielen?
+  mode: single
+- id: '1699109734637'
+  alias: Hombli Girlande Ein
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      device_id: e0a513b4dbbee62d0915f6d969facda0
+  mode: single
+- id: '1699540659258'
+  alias: Gang
+  description: Slave Switch
+  trigger:
+  - platform: device
+    type: changed_states
+    device_id: c4644b38e397b159f79802374a4d8551
+    entity_id: 1cc05d8c3ad97ee105308ef41f3dced8
+    domain: light
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      device_id: 73ba776439980854584929335bf3714e
+  mode: single
+- id: '1700918863770'
+  alias: Dampfabzug
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 68124fde9c44c09b102e3d0cc92bd86f
+    entity_id: 69a2829a8c376a24cf96b45327afcf87
+    domain: switch
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - type: turn_off
+    device_id: 68124fde9c44c09b102e3d0cc92bd86f
+    entity_id: 69a2829a8c376a24cf96b45327afcf87
+    domain: switch
   mode: single
