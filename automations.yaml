@@ -516,19 +516,19 @@
       target:
         entity_id: media_player.badezimmer
       data:
-        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:3Z8qrVKPg9PcZ0aq5Azed6
-        media_content_type: spotify://playlist
+        media_content_id: media-source://radio_browser/961c96ef-0601-11e8-ae97-52543be04c81
+        media_content_type: audio/mpeg
       metadata:
-        title: Brunnenfest evening
-        thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2731442a3c9515d200e10cfd9c5ab67616d0000b2731a9be7530f56737a32d6d558ab67616d0000b273944f09035ef3ddf623261ad1ab67616d0000b2739d3ad3a9fa90bf0dee0ae5be
-        media_class: playlist
-        children_media_class: track
+        title: ROCK FM
+        thumbnail: https://lh3.googleusercontent.com/D3taObR7tfyhwDFY40VS8DIVri7iif5RuzI9C-mXxRwF41vGZ_dO_n6MWM57P-mZczFC=w300
+        media_class: music
+        children_media_class:
         navigateIds:
         - {}
-        - media_content_type: spotify://library
-          media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
-        - media_content_type: spotify://current_user_playlists
-          media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
+        - media_content_type: app
+          media_content_id: media-source://radio_browser
+        - media_content_type: music
+          media_content_id: media-source://radio_browser/popular
     else:
     - service: media_player.volume_set
       data:
@@ -898,11 +898,11 @@
     target:
       entity_id: media_player.badezimmer
     data:
-      media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0X9UAelwIYIT66wGstzi4t
+      media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:2qi26YXcburAghyhu6a5UD
       media_content_type: spotify://playlist
     metadata:
-      title: Brunnenfest kids
-      thumbnail: https://mosaic.scdn.co/640/ab67616d0000b273320e4e7ef54225c93987c568ab67616d0000b2736e2c0e81c41d55d8d83e87cfab67616d0000b2737e2e218329c9d2f79717c36fab67616d0000b273d60ccd6a9ec164294db8104b
+      title: Danse contemporaine
+      thumbnail: https://mosaic.scdn.co/640/ab67616d0000b27363244b65e1ebd6c41aecc98dab67616d0000b2736ce61113662ecf693b605ee5ab67616d0000b2739ad43ccbc96dbeb7e4cb1159ab67616d0000b273d00e49003543a5bb5aa5b873
       media_class: playlist
       children_media_class: track
       navigateIds:
@@ -911,8 +911,6 @@
         media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396
       - media_content_type: spotify://current_user_playlists
         media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/current_user_playlists
-      - media_content_type: spotify://playlist
-        media_content_id: spotify://4c8b5c29d2e8eadf36ea31787c816396/spotify:playlist:0X9UAelwIYIT66wGstzi4t
   - service: media_player.volume_set
     data:
       volume_level: 0.64
@@ -954,7 +952,7 @@
       device_id: e0a513b4dbbee62d0915f6d969facda0
   mode: single
 - id: '1699540659258'
-  alias: Gang
+  alias: Gang S
   description: Slave Switch
   trigger:
   - platform: device
@@ -967,7 +965,8 @@
   - service: light.toggle
     data: {}
     target:
-      device_id: 73ba776439980854584929335bf3714e
+      device_id:
+      - b71e839d9fba186415f0f8147c72213d
   mode: single
 - id: '1700918863770'
   alias: Dampfabzug
@@ -990,3 +989,29 @@
     entity_id: 69a2829a8c376a24cf96b45327afcf87
     domain: switch
   mode: single
+- id: '1701354495826'
+  alias: Gang N
+  description: ''
+  trigger:
+  - platform: device
+    device_id: b71e839d9fba186415f0f8147c72213d
+    domain: shelly
+    type: single
+    subtype: button1
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      device_id: b71e839d9fba186415f0f8147c72213d
+  mode: single
+- id: '1701367718291'
+  alias: Gang Motion
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.hue_gang_occupancy
+      no_motion_wait: 120
+      light_target:
+        device_id: b71e839d9fba186415f0f8147c72213d

@@ -116,3 +116,5 @@ intent_script:
       service: light.turn_on
       target:
         entity_id: light.buero
+
+websocket_api:
