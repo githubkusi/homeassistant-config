@@ -202,29 +202,13 @@
   trigger:
   - platform: device
     type: turned_off
-    device_id: 9cdc61049d2b05bba87540ebda2a38b6
-    entity_id: light.badezimmer
+    device_id: 34ea4cd10222ef29db03fda5de6563aa
+    entity_id: a2c1cfbb0d20af4582fc82cf1450cbd1
     domain: light
   condition: []
   action:
   - service: media_player.media_stop
     entity_id: media_player.badezimmer
-  mode: single
-- id: '1670343600109'
-  alias: Badezimmer Nat stop on light off
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_off
-    device_id: 9cdc61049d2b05bba87540ebda2a38b6
-    entity_id: light.badezimmer
-    domain: light
-  condition: []
-  action:
-  - service: media_player.media_stop
-    data: {}
-    target:
-      entity_id: media_player.badezimmer
   mode: single
 - id: '1670442525029'
   alias: Terrasse Long Push Beamer
@@ -483,15 +467,16 @@
     subtype: remote_button_short_press
     enabled: false
   - platform: device
-    type: turned_on
-    device_id: 9cdc61049d2b05bba87540ebda2a38b6
-    entity_id: light.badezimmer
+    device_id: 34ea4cd10222ef29db03fda5de6563aa
+    domain: shelly
+    type: single_push
+    subtype: button1
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 34ea4cd10222ef29db03fda5de6563aa
+    entity_id: a2c1cfbb0d20af4582fc82cf1450cbd1
     domain: light
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 0
-  condition: []
   action:
   - if:
     - condition: time
@@ -576,6 +561,7 @@
     - tue
     - wed
     - thu
+    - fri
   action:
   - event: kinderzimmer-fade-in
     event_data:
@@ -1015,3 +1001,141 @@
       no_motion_wait: 120
       light_target:
         device_id: b71e839d9fba186415f0f8147c72213d
+- id: '1706206507528'
+  alias: Kinderzimmer Toggle Aquara1
+  description: ''
+  trigger:
+  - device_id: 31cfe845d69d3416c4319e383f33659e
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: remote_button_short_press
+  condition: []
+  action:
+  - service: light.toggle
+    target:
+      entity_id: light.kinderzimmer
+    data: {}
+  mode: single
+- id: '1706375388618'
+  alias: Waschmaschine Start
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.v_zug_washing_machine
+    attribute: Inactive
+    from: 'true'
+    to: 'false'
+  condition: []
+  action:
+  - service: media_player.volume_set
+    target:
+      device_id: ce9564c4fdbd8e5745dfaabe0acd5fd0
+    data:
+      volume_level: 0.57
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.kitchen_speaker
+    data:
+      media_content_id: media-source://tts/google_translate?message=Die+W%C3%A4sche+hat+begonnen&language=de
+      media_content_type: provider
+    metadata:
+      title: Die Wäsche hat begonnen
+      thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/google_translate?message=Die+W%C3%A4sche+hat+begonnen&language=de
+  mode: single
+- id: '1706375487312'
+  alias: Waschmaschine Fertig
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.v_zug_washing_machine
+    attribute: Inactive
+    from: 'false'
+    to: 'true'
+  condition: []
+  action:
+  - service: media_player.volume_set
+    target:
+      device_id: ce9564c4fdbd8e5745dfaabe0acd5fd0
+    data:
+      volume_level: 0.57
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.kitchen_speaker
+    data:
+      media_content_id: media-source://tts/google_translate?message=Die+W%C3%A4sche+ist+fertig&language=de
+      media_content_type: provider
+    metadata:
+      title: Die Wäsche ist fertig
+      thumbnail: https://brands.home-assistant.io/_/google_translate/logo.png
+      media_class: app
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://tts
+      - media_content_type: provider
+        media_content_id: media-source://tts/google_translate?message=Die+W%C3%A4sche+ist+fertig&language=de
+  mode: single
+- id: shellies_announce_gen2
+  alias: Shellies Announce Gen2
+  trigger:
+  - platform: homeassistant
+    event: start
+  variables:
+    device_info_payload: '{{ {''id'': 1, ''src'':''shellies_discovery'', ''method'':''Shelly.GetConfig''}
+      | to_json }}'
+    device_ids:
+    - shellyplus2pm-485519a1ff8c
+    - custom-prefix/shelly-kitchen
+  action:
+  - repeat:
+      for_each: '{{ device_ids }}'
+      sequence:
+      - service: mqtt.publish
+        data:
+          topic: '{{ repeat.item }}/rpc'
+          payload: '{{ device_info_payload }}'
+- id: shellies_discovery_gen2
+  alias: Shellies Discovery Gen2
+  mode: queued
+  max: 999
+  trigger:
+  - platform: mqtt
+    topic: shellies_discovery/rpc
+  action:
+  - service: python_script.shellies_discovery_gen2
+    data:
+      id: '{{ trigger.payload_json.src }}'
+      device_config: '{{ trigger.payload_json.result }}'
+  - service: mqtt.publish
+    data:
+      topic: '{{ trigger.payload_json.result.mqtt.topic_prefix }}/command'
+      payload: status_update
+- id: '1711893906080'
+  alias: Aqara Büro Steckdose
+  description: ''
+  trigger:
+  - device_id: 2c5023272665028ae1e5892d1515994e
+    domain: zha
+    platform: device
+    type: remote_button_short_press
+    subtype: remote_button_short_press
+  condition: []
+  action:
+  - service: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      device_id: 4a294906b46b9fe74deee09413f8879d
+  mode: single
