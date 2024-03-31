@@ -118,3 +118,42 @@ intent_script:
         entity_id: light.buero
 
 websocket_api:
+
+rest:
+  - scan_interval: 60
+    resource: http://192.168.1.64/ai?command=getDeviceStatus
+    sensor:
+      name: v_zug_washing_machine
+      json_attributes:
+        - DeviceName
+        - Serial
+        - Inactive
+        - Status
+        - Program
+        - ProgramEnd
+        - EndType
+
+template:
+  - sensor:
+      - name: v_zug_washing_machine_serial
+        state: "{{ state_attr('sensor.v_zug_washing_machine', 'Serial') }}"
+      - name: v_zug_washing_machine_inactive
+        state: "{{ state_attr('sensor.v_zug_washing_machine', 'Inactive') }}"
+      - name: v_zug_washing_machine_program
+        state: "{{ state_attr('sensor.v_zug_washing_machine', 'Program') }}"
+      - name: v_zug_washing_machine_status
+        state: "{{ state_attr('sensor.v_zug_washing_machine', 'Status') }}"
+      - name: v_zug_washing_machine_ProgramEnd
+        state: "{{ state_attr('sensor.v_zug_washing_machine', 'ProgramEnd') }}"
+      - name: v_zug_washing_machine_EndType
+        state: "{{ state_attr('sensor.v_zug_washing_machine', 'EndType') }}"
+
+python_script:
+
+logger:
+  default: info
+
+zha:
+  device_config:
+    00:12:4b:00:26:b7:fa:3c-1:
+      type: "switch"
